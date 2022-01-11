@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Post, User } = require('../models');
 const withAuth = require('../utils/auth');
 
+// * / *
 
 // ======== ALL POSTS TO HOMEPAGE ========
 // basically, turns then into an array that homepage.handlebars can loop over and be rendered onto the screen when at the / ('homepage) endpoint

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+// * /api/users
 
 // ============== SIGN UP / CREATE NEW USER =================
 
