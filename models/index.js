@@ -39,4 +39,6 @@ Comment.belongsTo(User, {
   onDelete: 'CASCADE'
 });
 
+// ======= EXPORT RELATIONSHIPS =====
+
 module.exports = { User, Post, Comment };
