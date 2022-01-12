@@ -8,9 +8,9 @@
 
   <div id='comment-box'>
     <p>Comment:</p>
-    <textarea placeholder="Leave a Comment!"></textarea>
+    <textarea id='new-comment' placeholder="Leave a Comment!"></textarea>
     <p>
-      <button class="btn btn-primary">Submit</button>
+      <button class="btn btn-primary" id="comment-btn">Submit</button>
     </p>
   </div>
 
@@ -18,9 +18,9 @@
 
 <br>
 
-
+{{#each comments as |comment|}}
 <div>
-  {{user.username}}
+  {{comment.user.username}}
 <div>
   <blockquote>{{comment.comment}}</blockquote>
 </div>

@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// =========== POST ALL COMMENTS =========
+// =========== CREATE COMMENT =========
 
 router.post('/', withAuth, async (req, res) => {
 
@@ -53,7 +53,7 @@ router.post('/', withAuth, async (req, res) => {
 
 });
 
-// ======== POST ONE COMMENT =========
+// ======== POST / DISPLAY COMMENT =========
 
 router.post('/:id', withAuth, async (req, res) => {
 
@@ -63,7 +63,7 @@ router.post('/:id', withAuth, async (req, res) => {
 
     const newComment = await Comment.create({
       ...req.body,
-      route_id: req.params.id,
+      post_id: req.params.id,
       user_id: req.session.user_id
     });
 
@@ -73,7 +73,7 @@ router.post('/:id', withAuth, async (req, res) => {
     res.status(400).json(error);
     console.log(error);
   };
-  
+
 });
 
 module.exports = router;

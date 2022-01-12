@@ -3,14 +3,13 @@ commentSubmit.addEventListener('click', async event => {
 
     console.log('cucumber');
 
-    const review = document.querySelector('#new-comment').value;
-    const rating = document.querySelector('#rating').value;
+    const comment = document.querySelector('#new-comment').value;
 
     const id = location.pathname.split('/')[2];
 
-    const response = await fetch('/api/route/'+ id, {
+    const response = await fetch('/api/comment/'+ id, {
         method: 'POST',
-        body: JSON.stringify({ review: review, rating: rating}),
+        body: JSON.stringify({ comment: comment}),
         headers: {
             'Content-Type': 'application/json',
         },
@@ -20,7 +19,7 @@ commentSubmit.addEventListener('click', async event => {
     
     
     if (response.ok) {
-        document.location.replace('/route/' + id);
+        document.location.replace('/post/' + id);
     } else {
         alert('Failed to create project');
     }
