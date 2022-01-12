@@ -1,4 +1,8 @@
+
+// ===== SUBMIT A COMMENT =======
+
 const commentSubmit = document.querySelector('#comment-btn');
+
 commentSubmit.addEventListener('click', async event => {
 
     console.log('cucumber');
@@ -14,9 +18,8 @@ commentSubmit.addEventListener('click', async event => {
             'Content-Type': 'application/json',
         },
     });
+
     console.log(response)
-    
-    
     
     if (response.ok) {
         document.location.replace('/post/' + id);

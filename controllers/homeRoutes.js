@@ -5,7 +5,6 @@ const withAuth = require('../utils/auth');
 // * / *
 
 // ======== ALL POSTS TO HOMEPAGE ========
-// basically, turns then into an array that homepage.handlebars can loop over and be rendered onto the screen when at the / ('homepage) endpoint
 
 router.get('/', async (req, res) => {
   try {
@@ -37,8 +36,6 @@ router.get('/', async (req, res) => {
 
 
 // ======== SINGLE POST ROUTE =======
-
-// basically, when someone clicks on a post, it will take them to this endpoint while rendering the post.hdb
 
 router.get('/post/:id', withAuth, async (req, res) => {
   try {
@@ -74,7 +71,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
   }
 });
 
-// =========== WITH AUTH =================
+// =========== PROFILE / DASHBOARD =================
 
 // Use withAuth middleware to prevent access to route
 router.get('/profile', withAuth, async (req, res) => {
@@ -97,7 +94,7 @@ router.get('/profile', withAuth, async (req, res) => {
   }
 });
 
-// =============  ==============
+// ============= LOGIN / REDIRECT ==============
 
 router.get('/login', (req, res) => {
 
