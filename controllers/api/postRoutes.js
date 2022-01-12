@@ -1,8 +1,45 @@
 const router = require('express').Router();
-const { Post } = require('../../models');
+const { Post, Comment, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // * /api/post *
+
+// ======== SINGLE POST ROUTE =======
+
+router.get('/:id', withAuth, async (req, res) => {
+  try {
+
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+        {
+          model: Comment,
+          include: 
+          [{
+            model: User, 
+            attributes: ['username']
+          }]
+        },
+      ],
+    });
+
+    const post = postData.get({ plain: true });
+    console.log(post);
+
+    res.render('post', {
+      ...post,
+      logged_in: true
+    });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 
 // ========== CREATE POST ===============
 
