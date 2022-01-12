@@ -40,7 +40,7 @@ router.get('/', async (req, res) => {
 
 // basically, when someone clicks on a post, it will take them to this endpoint while rendering the post.hdb
 
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:id', withAuth, async (req, res) => {
   try {
 
     const postData = await Post.findByPk(req.params.id, {
@@ -65,7 +65,7 @@ router.get('/post/:id', async (req, res) => {
 
     res.render('post', {
       ...post,
-      logged_in: req.session.logged_in
+      logged_in: true
     });
 
   } catch (err) {
