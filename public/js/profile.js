@@ -1,19 +1,62 @@
 
-// ===== CREATE POST ======
+// ========= GLOBAL VARIABLES ========= 
 
-const newFormHandler = async (event) => {
+let editMode = false;
+
+let currentPostId;
+
+// ======= PUBLISH POST =========
+
+const postForm = document.querySelector('.new-post-form');
+
+postForm.addEventListener('submit', async (event) => {
+
   event.preventDefault();
 
-  const title = document.querySelector('#post-title').value.trim();
-  const content = document.querySelector('#post-content').value.trim();
+    // EDIT POST
+  if (editMode) {
 
-  if (title && content) {
+    const title = document.querySelector('#post-title').value;
+    const content = document.querySelector('#post-content').value;
 
-    const response = await fetch(`/api/post`, {
+    const response = await fetch('/api/post/' + currentPostId, {
+      method: 'PUT',
+      body: JSON.stringify({
+        title,
+        content
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    console.log(response);
+
+    // change button from 'Publish' to 'Update'
+
+    // document.querySelector('#comment-btn').textContent = "Update";
+
+    if (response.ok) {
+
+      // const id = location.pathname.split('/')[2];
+
+      document.location.replace('/profile');
+
+    } else {
+      alert('Failed to update post');
+    }
+
+      // NEW POST
+  } else {
+
+    const newTitle = document.querySelector('#post-title').value.trim();
+    const newContent = document.querySelector('#post-content').value.trim();
+
+    const response = await fetch('/api/post/', {
       method: 'POST',
       body: JSON.stringify({ 
-        title: title, 
-        content: content 
+        title: newTitle,
+        content: newContent 
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -21,17 +64,36 @@ const newFormHandler = async (event) => {
     });
 
     console.log(response);
-    
-    
+
     if (response.ok) {
       document.location.replace('/profile');
     } else {
-      console.log('cucumber');
       alert('Failed to create post');
     }
-  }
-};
 
+  }
+
+});
+
+// ===== EDIT POST =======
+
+  const editPostBtn = document.querySelector('.edit-btn');
+
+  editPostBtn.addEventListener('click', async event => {
+
+    console.log(event.target);
+
+    editMode = true;
+
+    currentPostId = event.target.getAttribute('data-id');
+
+    editTitle = document.querySelector('#post-title');
+    editTitle.textContent = event.target.getAttribute('data-title');
+
+    editContent = document.querySelector('#post-content');
+    editContent.textContent = event.target.getAttribute('data-content');
+
+  });
 
 // ========== DELETE POST ========== 
 
@@ -53,10 +115,8 @@ const delButtonHandler = async (event) => {
   }
 };
 
-document
-  .querySelector('.new-post-form')
-  .addEventListener('submit', newFormHandler);
+// ============== DOCUMENT ===================
 
 document
-  .querySelector('.post-list')
+  .querySelector('.delete-btn')
   .addEventListener('click', delButtonHandler);

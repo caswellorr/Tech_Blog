@@ -18,7 +18,7 @@
         <textarea class="form-input" id="post-content" name="post-content"></textarea>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary">Publish</button>
+        <button type="submit" class="btn btn-primary" id="post-btn">Publish</button>
       </div>
     </form>
   </div>
@@ -33,8 +33,8 @@
         <h4><a href="/post/{{post.id}}">{{post.title}}</a></h4>
       </div>
       <div class="col-md-4">
-        <button id='delete-btn' class="btn btn-sm btn-danger" data-id="{{post.id}}">DELETE</button>
-        <button id='edit-btn' class="btn btn-sm btn-info" data-id="{{post.id}}">EDIT</button>
+        <button class="btn btn-sm btn-danger delete-btn" data-id="{{post.id}}" data-value='{{post.content}}'>DELETE</button>
+        <button class="btn btn-sm btn-info edit-btn" data-id="{{post.id}}" data-content='{{post.content}}' data-title='{{post.title}}'>EDIT</button>
     </div>
     {{/each}}
   </div>

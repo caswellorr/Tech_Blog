@@ -1,6 +1,7 @@
 
 
 // ===== GLOBAL VARIABLES =======
+
 let editMode = false;
 
 let currentCommentId;
@@ -11,6 +12,7 @@ const submitComment = document.querySelector('#comment-btn');
 
 submitComment.addEventListener('click', async (event) => {
 
+    // EDIT COMMENT
   if (editMode) {
 
     let comment = document.querySelector("#comment").value
@@ -25,23 +27,33 @@ submitComment.addEventListener('click', async (event) => {
 
     console.log(response);
 
+    // change button from 'Submit' to 'Update'
+
+    // document.querySelector('#comment-btn').textContent = "Update";
+
+
     if (response.ok) {
+
       const id = location.pathname.split('/')[2];
 
       document.location.replace('/post/' + id);
+
     } else {
       alert('Failed to create comment');
     }
 
+    // NEW COMMENT
   } else {
 
-    const comment = document.querySelector('#comment').value;
+    const newComment = document.querySelector('#comment').value;
 
     const id = location.pathname.split('/')[2];
 
     const response = await fetch('/api/comment/' + id, {
       method: 'POST',
-      body: JSON.stringify({ comment: comment }),
+      body: JSON.stringify({ 
+        comment: newComment 
+      }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -59,17 +71,18 @@ submitComment.addEventListener('click', async (event) => {
 
 });
 
-// ===== EDIT A COMMENT =======
+// ===== EDIT COMMENT =======
 
-const commentEditBtn = document.querySelector('.edit-btn');
+const editCommentBtn = document.querySelector('.edit-btn');
 
-commentEditBtn.addEventListener('click', async event => {
+editCommentBtn.addEventListener('click', async event => {
 
   editMode = true;
 
   currentCommentId = event.target.getAttribute('data-id');
 
   document.querySelector('#comment').textContent = event.target.getAttribute('data-value');
+
 });
 
 // ========== DELETE COMMENT ========== 
@@ -95,6 +108,8 @@ const delButtonHandler = async (event) => {
     }
   }
 };
+
+//============== DOCUMENT ============
 
 document
   .querySelector('.comment-list')
