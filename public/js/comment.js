@@ -1,87 +1,101 @@
 
-// ===== SUBMIT A COMMENT =======
 
-const commentSubmit = document.querySelector('#comment-btn');
+// ===== GLOBAL VARIABLES =======
+let editMode = false;
 
-commentSubmit.addEventListener('click', async (event) => {
+let currentCommentId;
 
-    const comment = document.querySelector('#new-comment').value;
+// ===== SUBMIT COMMENT =======
 
-    const id = location.pathname.split('/')[2];
+const submitComment = document.querySelector('#comment-btn');
 
-    const response = await fetch('/api/comment/'+ id, {
-        method: 'POST',
-        body: JSON.stringify({ comment: comment}),
-        headers: {
-            'Content-Type': 'application/json',
-        },
+submitComment.addEventListener('click', async (event) => {
+
+  if (editMode) {
+
+    let comment = document.querySelector("#comment").value
+
+    const response = await fetch('/api/comment/' + currentCommentId, {
+      method: 'PUT',
+      body: JSON.stringify({ comment }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     console.log(response);
-    
+
     if (response.ok) {
-        document.location.replace('/post/' + id);
+      const id = location.pathname.split('/')[2];
+
+      document.location.replace('/post/' + id);
     } else {
-        alert('Failed to create comment');
+      alert('Failed to create comment');
     }
+
+  } else {
+
+    const comment = document.querySelector('#comment').value;
+
+    const id = location.pathname.split('/')[2];
+
+    const response = await fetch('/api/comment/' + id, {
+      method: 'POST',
+      body: JSON.stringify({ comment: comment }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log(response);
+
+    if (response.ok) {
+      document.location.replace('/post/' + id);
+    } else {
+      alert('Failed to create comment');
+    }
+
+  }
+
 });
 
 // ===== EDIT A COMMENT =======
 
-// const commentEdit = document.getElementById('#edit-btn');
+const commentEditBtn = document.querySelector('.edit-btn');
 
-// commentEdit.addEventListener('click', async event => {
+commentEditBtn.addEventListener('click', async event => {
 
-//     const editComment = document.getElementById('#edit-comment').value;
+  editMode = true;
 
-//     const id = location.pathname.split('/')[2];
+  currentCommentId = event.target.getAttribute('data-id');
 
-//     const response = await fetch('/api/comment/'+ id, {
-//         method: 'PUT',
-//         body: JSON.stringify({ comment: comment}),
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//     });
-
-//     console.log(response)
-    
-//     if (response.ok) {
-//         document.location.replace('/post/' + id);
-
-//     } else {
-//         alert('Failed to edit comment');
-//     }
-// });
+  document.querySelector('#comment').textContent = event.target.getAttribute('data-value');
+});
 
 // ========== DELETE COMMENT ========== 
 
 const delButtonHandler = async (event) => {
 
-    if (event.target.hasAttribute('data-id')) {
-  
-      const id = event.target.getAttribute('data-id');
-  
-      const response = await fetch(`/api/comment/${id}`, {
-        method: 'DELETE',
-      });
+  if (event.target.matches('.delete-btn') && event.target.hasAttribute('data-id')) {
 
-      console.log(response);
-  
-      if (response.ok) {
+    const id = event.target.getAttribute('data-id');
 
-        const id = await fetch(`/api/post/:id`, {
-            method: 'GET',
-          });
-    
-        document.location.replace(`/post/${id}`);
+    const response = await fetch(`/api/comment/${id}`, {
+      method: 'DELETE',
+    });
 
-      } else {
-        alert('Failed to delete comment');
-      }
+    console.log(response);
+
+    if (response.ok) {
+
+      document.location.replace(window.location.pathname);
+
+    } else {
+      alert('Failed to delete comment');
     }
-  };
+  }
+};
 
-  document
+document
   .querySelector('.comment-list')
   .addEventListener('click', delButtonHandler);

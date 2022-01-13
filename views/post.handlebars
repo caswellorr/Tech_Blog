@@ -8,7 +8,7 @@
 
   <div id='comment-box'>
     <p>Comment:</p>
-    <textarea id='new-comment' placeholder="Leave a Comment!"></textarea>
+    <textarea id='comment' placeholder="Leave a Comment!"></textarea>
     <p>
       <button class="btn btn-primary" id="comment-btn">Submit</button>
     </p>
@@ -28,11 +28,11 @@
       <h5>{{comment.user.username}}</h5>
     </div>
     <div>
-      <blockquote>{{comment.comment}}</blockquote>
+      <blockquote >{{comment.comment}}</blockquote>
     </div>
     <div class="col-md-4">
-      <button id='delete-btn' class="btn btn-sm btn-danger" data-id="{{comment.id}}">DELETE</button>
-      <button id='edit-btn' class="btn btn-sm btn-info" data-id="{{comment.id}}">EDIT</button>
+      <button class="btn btn-sm btn-danger delete-btn" data-id="{{comment.id}}">DELETE</button>
+      <button class="btn btn-sm btn-info edit-btn" data-id="{{comment.id}}" data-value='{{comment.comment}}'>EDIT</button>
     </div>
   {{/each}}
 </div>
