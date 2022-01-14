@@ -27,11 +27,6 @@ submitComment.addEventListener('click', async (event) => {
 
     console.log(response);
 
-    // change button from 'Submit' to 'Update'
-
-    // document.querySelector('#comment-btn').textContent = "Update";
-
-
     if (response.ok) {
 
       const id = location.pathname.split('/')[2];
@@ -78,6 +73,8 @@ const editCommentBtn = document.querySelector('.edit-btn');
 editCommentBtn.addEventListener('click', async event => {
 
   editMode = true;
+
+  document.querySelector('#comment-btn').textContent = "Update";
 
   currentCommentId = event.target.getAttribute('data-id');
 

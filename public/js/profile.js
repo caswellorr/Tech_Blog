@@ -32,13 +32,9 @@ postForm.addEventListener('submit', async (event) => {
 
     console.log(response);
 
-    // change button from 'Publish' to 'Update'
-
-    // document.querySelector('#comment-btn').textContent = "Update";
+    document.querySelector('#comment-btn').textContent = "Update";
 
     if (response.ok) {
-
-      // const id = location.pathname.split('/')[2];
 
       document.location.replace('/profile');
 
@@ -77,21 +73,26 @@ postForm.addEventListener('submit', async (event) => {
 
 // ===== EDIT POST =======
 
-  const editPostBtn = document.querySelector('.edit-btn');
+  const editContainer = document.querySelector('.post-container');
 
-  editPostBtn.addEventListener('click', async event => {
+  editContainer.addEventListener('click', async event => {
 
-    console.log(event.target);
+    if(event.target.matches(".edit-btn")) {
 
-    editMode = true;
+      editMode = true;
 
-    currentPostId = event.target.getAttribute('data-id');
+      document.querySelector('#post-btn').textContent = "Update";
+  
+      currentPostId = event.target.getAttribute('data-id');
+  
+      editTitle = document.querySelector('#post-title');
+      editTitle.value = event.target.getAttribute('data-title');
+  
+      editContent = document.querySelector('#post-content');
+      editContent.value = event.target.getAttribute('data-content');
 
-    editTitle = document.querySelector('#post-title');
-    editTitle.textContent = event.target.getAttribute('data-title');
+    }
 
-    editContent = document.querySelector('#post-content');
-    editContent.textContent = event.target.getAttribute('data-content');
 
   });
 
@@ -99,7 +100,7 @@ postForm.addEventListener('submit', async (event) => {
 
 const delButtonHandler = async (event) => {
 
-  if (event.target.hasAttribute('data-id')) {
+  if (event.target.matches('.delete-btn')) {
 
     const id = event.target.getAttribute('data-id');
 
@@ -115,8 +116,6 @@ const delButtonHandler = async (event) => {
   }
 };
 
-// ============== DOCUMENT ===================
-
 document
-  .querySelector('.delete-btn')
+  .querySelector('.post-container')
   .addEventListener('click', delButtonHandler);
