@@ -22,7 +22,7 @@ The Tech Blog application follows the MVC paradigm in its architectural structur
 
   ![alt text](./Assets/screenshot2.png)
 
-* User dashboard where they can create a new post and view history of posts:
+* User dashboard where they can create a new post or update an old one:
 
   ![alt text](./Assets/screenshot3.png)
 
@@ -33,15 +33,7 @@ The Tech Blog application follows the MVC paradigm in its architectural structur
 
 ## Takeaways 💡
 
+MVC kept me organized. I was able to seamlessly connect the front and back ends. This application was a great refresher of front end JavaScript and DOM traversal. I enjoyed pushing myself through this project. 
 
 ----
 © 2021 Caswell Orr. Confidential and Proprietary. All Rights Reserved.
-
-
-WHEN I click on one of my existing posts in the dashboard
-THEN I am able to delete or update my post and taken back to an updated dashboard
-WHEN I click on the logout option in the navigation
-THEN I am signed out of the site
-WHEN I am idle on the site for more than a set time
-THEN I am able to view comments but I am prompted to log in again before I can add, update, or delete comments
-```
