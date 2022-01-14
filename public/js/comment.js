@@ -68,9 +68,9 @@ submitComment.addEventListener('click', async (event) => {
 
 // ===== EDIT COMMENT =======
 
-const editCommentBtn = document.querySelector('.edit-btn');
+const commentContainer = document.querySelector('.comment-container');
 
-editCommentBtn.addEventListener('click', async event => {
+commentContainer.addEventListener('click', async event => {
 
   editMode = true;
 
@@ -109,5 +109,5 @@ const delButtonHandler = async (event) => {
 //============== DOCUMENT ============
 
 document
-  .querySelector('.comment-list')
+  .querySelector('.comment-container')
   .addEventListener('click', delButtonHandler);
