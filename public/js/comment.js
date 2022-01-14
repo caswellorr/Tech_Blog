@@ -106,8 +106,6 @@ const delButtonHandler = async (event) => {
   }
 };
 
-//============== DOCUMENT ============
-
 document
   .querySelector('.comment-container')
   .addEventListener('click', delButtonHandler);

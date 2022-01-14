@@ -16,6 +16,8 @@ postForm.addEventListener('submit', async (event) => {
     // EDIT POST
   if (editMode) {
 
+    document.querySelector('#post-btn').textContent = "Update";
+
     const title = document.querySelector('#post-title').value;
     const content = document.querySelector('#post-content').value;
 
@@ -31,8 +33,6 @@ postForm.addEventListener('submit', async (event) => {
     });
 
     console.log(response);
-
-    document.querySelector('#comment-btn').textContent = "Update";
 
     if (response.ok) {
 
@@ -84,6 +84,8 @@ postForm.addEventListener('submit', async (event) => {
       document.querySelector('#post-btn').textContent = "Update";
   
       currentPostId = event.target.getAttribute('data-id');
+
+      console.log(currentPostId);
   
       editTitle = document.querySelector('#post-title');
       editTitle.value = event.target.getAttribute('data-title');
